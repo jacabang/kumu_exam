@@ -53,6 +53,11 @@ class PageController extends Controller
 
     public function login(Request $request){
 
+        $x = 1;
+        $y= 4;
+
+        return $output = gmp_hamdist($x, $y);
+
         $validation = Validator::make($request->all(), [
             'email'=>'required',
             'password' => 'required',
@@ -88,5 +93,51 @@ class PageController extends Controller
                 'message' => "Wrong Access"
             ]);
         }
+    }
+
+    public function hmd(Request $request){
+
+        $validation = Validator::make($request->all(), [
+            'data1'=>'required|integer',
+            'data2'=>'required|integer'
+        ]);
+
+        if($validation->fails()){
+            $error = $validation->messages()->first();
+            return response()->json([
+                'response' => false,
+                'message' => $error
+            ]);
+        }
+
+        $data1 = decbin($request->get('data1'));
+        $data2 = decbin($request->get('data2'));
+
+        $max_length = strlen($data1) + strlen($data2);
+
+        $data1 = str_pad($data1, $max_length, "0", STR_PAD_LEFT);
+        $data1_array = str_split($data1);
+
+        $data2 = str_pad($data2, $max_length, "0", STR_PAD_LEFT);
+        $data2_array = str_split($data2);
+
+        $y = 0;
+
+        for($x = 0; $x < $max_length; $x++):
+            if($data1_array[$x] != $data2_array[$x]):
+                $y++;
+            endif;
+        endfor;
+
+        $data = array(
+                "integer_bit1" => $data1,
+                "integer_bit2" => $data2,
+                "distance" => $y
+                );
+
+        return response()->json([
+                'response' => true,
+                'data' => $data
+            ]);
     }
 }

@@ -23,6 +23,7 @@ use App\Http\Controllers\PageController;
 Route::post('/fetchUser', [TestController::class, 'fetchUser'])
 	->middleware('auth:api');
 
+Route::post('/hmd', [PageController::class, 'hmd']);
 Route::post('/unauthorize', [PageController::class, 'unauthorize'])->name('login');
 Route::post('/register', [PageController::class, 'register']);
 Route::post('/login', [PageController::class, 'login']);
