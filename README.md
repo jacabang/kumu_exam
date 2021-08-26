@@ -7,19 +7,83 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## After Clone please run the following:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- run `composer update` on your terminal but go to the folder were the project is cloned.
+- create <b>kumu_exam</b> databased on mysql.
+- run `php artisan migrate --seed` to generate tables on to the create database.
+- make sure you have redis installed on your computer
+- run `redis-server` on your terminal
+- run `redis-cli` on your terminal
+- run `php artisan passport:client --personal` to generate personal token for bearer token generation upon using the payloads for fetching the user list on github using this application
+- run `php artisan optimize`
+- run `php artisan serve` to generate an server IP for the project
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### create a <b>.env</b> file on the folderproject and copy the code block bellow
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<pre>
+APP_NAME=Laravel<br>
+APP_ENV=local<br>
+APP_KEY=base64:FHPCvy/Pyc7TX1Rcp5Di2iE51eWUs4UWQ6HLoz9/sN4=<br>
+APP_DEBUG=true<br>
+APP_URL=http://localhost<br>
+<br>
+LOG_CHANNEL=stack<br>
+LOG_LEVEL=debug<br>
+<br>
+DB_CONNECTION=mysql<br>
+DB_HOST=127.0.0.1<br>
+DB_PORT=3306<br>
+DB_DATABASE=kumu_exam<br>
+DB_USERNAME=root<br>
+DB_PASSWORD=<br>
+<br>
+BROADCAST_DRIVER=log<br>
+CACHE_DRIVER=file<br>
+FILESYSTEM_DRIVER=local<br>
+QUEUE_CONNECTION=sync<br>
+SESSION_DRIVER=file<br>
+SESSION_LIFETIME=120<br>
+<br>
+MEMCACHED_HOST=127.0.0.1<br>
+<br>
+REDIS_CLIENT=predis<br>
+REDIS_HOST=127.0.0.1<br>
+REDIS_PASSWORD=null<br>
+REDIS_PORT=6379<br>
+<br>
+MAIL_MAILER=smtp<br>
+MAIL_HOST=mailhog<br>
+MAIL_PORT=1025<br>
+MAIL_USERNAME=null<br>
+MAIL_PASSWORD=null<br>
+MAIL_ENCRYPTION=null<br>
+MAIL_FROM_ADDRESS=null<br>
+MAIL_FROM_NAME="${APP_NAME}"<br>
+<br>
+AWS_ACCESS_KEY_ID=<br>
+AWS_SECRET_ACCESS_KEY=<br>
+AWS_DEFAULT_REGION=us-east-1<br>
+AWS_BUCKET=<br>
+AWS_USE_PATH_STYLE_ENDPOINT=false<br>
+<br>
+PUSHER_APP_ID=<br>
+PUSHER_APP_KEY=<br>
+PUSHER_APP_SECRET=<br>
+PUSHER_APP_CLUSTER=mt1<br>
+<br>
+MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"<br>
+MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"<br>
+</pre>
+
+### ALL Routes
+
+API Route | Action | Payload | Remarks | Description
+------------ | ------------- | ------------- | ------------- | -------------
+```/login``` | Post | <pre>{<br />"email": "jeffreycabang@gmail.com",<br />"password": "123qwe"<br />}</pre> |  | Login is the requirements to access ```/fetchUser```
+```/register``` | Post | <pre>{<br />"name": "Jeffrey Cabang",<br />"email": "jeffreycabang@gmail.com",<br />"password": "123qwe"<br />"confirmed_password": "123qwe"<br/>}</pre> | Upon Register it will automatically login | To register a user to the database.
+```/fetchUser``` | Post | None | Bearer Token Required | This pulls user data from github if no request occur or request has been made not exceeding 2 Minutes.
+```/logout``` | Post | None | Bearer Token Required | Remove all token available for the user.
 
 ## Learning Laravel
 
