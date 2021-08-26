@@ -84,6 +84,7 @@ API Route | Action | Payload | Remarks | Description
 ```/register``` | Post | <pre>{<br />"name": "Jeffrey Cabang",<br />"email": "jeffreycabang@gmail.com",<br />"password": "123qwe"<br />"confirmed_password": "123qwe"<br/>}</pre> | Upon Register it will automatically login | To register a user to the database.
 ```/fetchUser``` | Post | None | Bearer Token Required | This pulls user data from github if no request occur or request has been made not exceeding 2 Minutes.
 ```/logout``` | Post | None | Bearer Token Required | Remove all token available for the user.
+```/hmd``` | Post | <pre>{<br/>"data1": 1,<br/>"data2": 4<br/>}</pre> | Hamming Distance | Challenge 1
 
 ## Learning Laravel
 
