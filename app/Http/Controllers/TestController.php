@@ -75,7 +75,7 @@ class TestController extends Controller
 
     public function fetchData(){
 
-        $url = 'https://api.github.com/users?per_page=1';
+        $url = 'https://api.github.com/users?per_page=10';
 
         $response = $this->myCurl($url);
 
