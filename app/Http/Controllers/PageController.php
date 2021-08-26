@@ -53,9 +53,6 @@ class PageController extends Controller
 
     public function login(Request $request){
 
-        $x = 1;
-        $y= 4;
-
         $validation = Validator::make($request->all(), [
             'email'=>'required',
             'password' => 'required',
