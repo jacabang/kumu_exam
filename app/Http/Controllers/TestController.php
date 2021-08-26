@@ -97,7 +97,7 @@ class TestController extends Controller
                 $result1 = $this->myCurl($url);
 
                 //check if exceed limit
-                if(!isset($result1['messages'])):
+                if(!isset($result1['messages']) || !isset($result1['message'])):
 
                     //build user data
 
@@ -112,10 +112,18 @@ class TestController extends Controller
 
                 else:
 
-                   return array(
-                        'response' => false,
-                        'message' => $response['messages']
-                   );
+                    //skip missing username
+
+                    if(isset($result1['messages'])):
+                        $message = $result1['messages'];
+                    elseif(isset($result1['message'])):
+                        $message = $result1['message'];
+                    endif;
+
+                   // return array(
+                   //      'response' => false,
+                   //      'message' => $message
+                   // );
 
                 endif;
 
