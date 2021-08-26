@@ -56,8 +56,6 @@ class PageController extends Controller
         $x = 1;
         $y= 4;
 
-        return $output = gmp_hamdist($x, $y);
-
         $validation = Validator::make($request->all(), [
             'email'=>'required',
             'password' => 'required',
